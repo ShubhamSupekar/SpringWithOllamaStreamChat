@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #222; /* Set page background color to medium black */
+    color: white; /* Set default text color to white */
+}
+
+#chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the chat box container take the full height of the viewport */
+}
+
+#chat-box {
+    background-color: black; /* Set chat box background color to black */
+    color: white; /* Set text color inside the chat box to white */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+}
+
+#response-container {
+    height: 240px; /* Reduced the height slightly to accommodate the button */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px; /* Added margin to create space between response container and button */
+}
+
+#stop-button {
+    background: linear-gradient(45deg, #ff6b6b, #f06595);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#stop-button:hover {
+    background: linear-gradient(45deg, #f06595, #ff6b6b);
+    transform: scale(1.05);
+}
+
+#stop-button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.6);
+}
