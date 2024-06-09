@@ -2,12 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('question-form');
     const responseContainer = document.getElementById('response-container');
     const stopButton = document.getElementById('stop-button');
+    const submitButton = document.querySelector('button[type="submit"]'); // Select the submit button
 
     let eventSource;
     let completeResponse = '';
 
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
+
+        // Disable the submit button
+        submitButton.disabled = true;
 
         // Clear any previous responses
         responseContainer.innerHTML = '';
@@ -28,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.data === null) {
                 // Close the event source if no more data
                 eventSource.close();
+                // Re-enable the submit button
+                submitButton.disabled = false;
                 return;
             }
 
@@ -41,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         eventSource.onerror = function(event) {
             console.error("EventSource failed:", event);
             eventSource.close();
+            // Re-enable the submit button
+            submitButton.disabled = false;
         };
     });
 
@@ -49,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (eventSource) {
             eventSource.close();
             responseContainer.innerHTML += '<p>Streaming stopped.</p>';
+            // Re-enable the submit button
+            submitButton.disabled = false;
         }
     });
 });
