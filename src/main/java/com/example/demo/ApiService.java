@@ -13,12 +13,12 @@ public class ApiService {
         this.webClient = webClientBuilder.baseUrl("http://localhost:11434").build();
     }
 
-    public Flux<String> getResponse() {
+    public Flux<String> getResponse(String prompt) {
         // Directly embedding the prompt in the JSON request body
 //        String requestBody = "{\"model\": \"llama3\", \"prompt\": \"Introduce yourself in 10 words\", \"stream\": true}";
         ChatStructure requestBody = new ChatStructure();
         requestBody.setModel("llama3");
-        requestBody.setPrompt("Introduce yourself in 10 words");
+        requestBody.setPrompt(prompt);
         requestBody.setStream(true);
 
         Flux<String> responseFlux = webClient.post()

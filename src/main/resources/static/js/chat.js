@@ -1,31 +1,54 @@
-const eventSource = new EventSource("/stream-chat");
-let completeResponse = '';
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('question-form');
+    const responseContainer = document.getElementById('response-container');
+    const stopButton = document.getElementById('stop-button');
 
-eventSource.onmessage = function(event) {
-    if (event.data === null) {
-        console.log("event data null");
-        // If event data is null, close the event source
-        eventSource.close();
-        return;
-    }
+    let eventSource;
+    let completeResponse = '';
 
-    let newData = event.data.replace(/\\n/g, '<br>'); // Replace \n with line breaks
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
 
-    completeResponse += " " + newData;
+        // Clear any previous responses
+        responseContainer.innerHTML = '';
+        completeResponse = '';
 
-    const responseContainer = document.getElementById("response-container");
-    responseContainer.innerHTML = completeResponse; // Use innerHTML to render HTML tags
+        // Get the user's question from the input field
+        const question = document.getElementById('question-input').value;
 
-    // Scroll to the bottom of the container to see the latest messages
-    responseContainer.scrollTop = responseContainer.scrollHeight;
-};
+        // Close any existing EventSource to avoid multiple open connections
+        if (eventSource) {
+            eventSource.close();
+        }
 
-eventSource.onerror = function(event) {
-    console.log(event+"Error here")
-    eventSource.close();
-};
+        // Create a new EventSource to receive streaming responses
+        eventSource = new EventSource(`/stream-chat?question=${encodeURIComponent(question)}`);
 
-// Add event listener for the stop button
-document.getElementById('stop-button').addEventListener('click', function() {
-    eventSource.close();
+        eventSource.onmessage = function(event) {
+            if (event.data === null) {
+                // Close the event source if no more data
+                eventSource.close();
+                return;
+            }
+
+            // Process the received data and replace line breaks with HTML tags
+            let newData = event.data.replace(/\\n/g, '<br>');
+            completeResponse += " " + newData;
+            responseContainer.innerHTML = completeResponse; // Use innerHTML to render HTML tags
+            responseContainer.scrollTop = responseContainer.scrollHeight; // Scroll to the latest message
+        };
+
+        eventSource.onerror = function(event) {
+            console.error("EventSource failed:", event);
+            eventSource.close();
+        };
+    });
+
+    // Handle stopping the stream
+    stopButton.addEventListener('click', function() {
+        if (eventSource) {
+            eventSource.close();
+            responseContainer.innerHTML += '<p>Streaming stopped.</p>';
+        }
+    });
 });

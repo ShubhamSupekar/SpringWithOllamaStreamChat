@@ -1,3 +1,4 @@
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,30 +7,33 @@ body {
     color: white; /* Set default text color to white */
 }
 
+/* Chat container and box styling */
 #chat-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Make the chat box container take the full height of the viewport */
+    height: 100vh; /* Full height of the viewport */
 }
 
 #chat-box {
-    background-color: black; /* Set chat box background color to black */
-    color: white; /* Set text color inside the chat box to white */
+    background-color: black; /* Chat box background color */
+    color: white; /* Text color inside the chat box */
     padding: 20px;
     border-radius: 10px;
     max-width: 600px;
     width: 100%;
 }
 
+/* Response container styling */
 #response-container {
-    height: 240px; /* Reduced the height slightly to accommodate the button */
-    overflow-y: auto;
+    height: 240px; /* Height of the response container */
+    overflow-y: auto; /* Enable scrolling */
     border: 1px solid #ccc;
     padding: 10px;
-    margin-bottom: 10px; /* Added margin to create space between response container and button */
+    margin-bottom: 10px; /* Space between response container and button */
 }
 
+/* Stop button styling */
 #stop-button {
     background: linear-gradient(45deg, #ff6b6b, #f06595);
     border: none;
@@ -49,4 +53,48 @@ body {
 #stop-button:focus {
     outline: none;
     box-shadow: 0 0 10px rgba(255, 107, 107, 0.6);
+}
+
+/* Form styling */
+#question-form {
+    display: flex;
+    gap: 10px; /* Space between input and button */
+    margin-bottom: 15px; /* Space below the form */
+}
+
+#question-input {
+    flex: 1; /* Take up available space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333; /* Darker background for the input */
+    color: white; /* Input text color */
+}
+
+#question-input::placeholder {
+    color: #aaa; /* Placeholder text color */
+}
+
+#question-form button {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    /* Change the background color to a darker shade */
+    background: linear-gradient(45deg, #00688b, #004356);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#question-form button:hover {
+    /* Change the hover background color to a darker shade */
+    background: linear-gradient(45deg, #004356, #00688b);
+    transform: scale(1.05);
+}
+
+#question-form button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
 }
