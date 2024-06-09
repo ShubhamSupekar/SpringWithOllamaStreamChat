@@ -15,7 +15,11 @@ public class ApiService {
 
     public Flux<String> getResponse() {
         // Directly embedding the prompt in the JSON request body
-        String requestBody = "{\"model\": \"llama3\", \"prompt\": \"Introduce yourself in 10 words\", \"stream\": true}";
+//        String requestBody = "{\"model\": \"llama3\", \"prompt\": \"Introduce yourself in 10 words\", \"stream\": true}";
+        ChatStructure requestBody = new ChatStructure();
+        requestBody.setModel("llama3");
+        requestBody.setPrompt("Introduce yourself in 10 words");
+        requestBody.setStream(true);
 
         Flux<String> responseFlux = webClient.post()
                 .uri("/api/generate")
